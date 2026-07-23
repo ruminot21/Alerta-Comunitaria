@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#c62828">
+  <title>Alerta Comunitaria</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icon-192.png">
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <section id="authView" class="auth-shell">
+    <div class="auth-card">
+      <div class="brand-mark">🚨</div>
+      <h1>Alerta Comunitaria</h1>
+      <p class="muted">Regístrate para enviar alertas, compartir tu ubicación y responder mensajes.</p>
+
+      <div class="tabs">
+        <button id="tabLogin" class="tab active" type="button">Ingresar</button>
+        <button id="tabRegister" class="tab" type="button">Registrarme</button>
+      </div>
+
+      <form id="loginForm" class="stack">
+        <label>Correo
+          <input id="loginEmail" type="email" autocomplete="email" required placeholder="correo@ejemplo.com">
+        </label>
+        <label>Contraseña
+          <input id="loginPassword" type="password" autocomplete="current-password" required minlength="4">
+        </label>
+        <button class="btn primary" type="submit">Ingresar</button>
+        <button id="forgotPasswordBtn" class="text-button" type="button">Olvidé mi contraseña</button>
+      </form>
+
+      <form id="registerForm" class="stack hidden">
+        <label>Nombre completo
+          <input id="regName" required maxlength="80">
+        </label>
+        <label>Correo
+          <input id="regEmail" type="email" required autocomplete="email">
+        </label>
+        <label>Teléfono
+          <input id="regPhone" type="tel" required maxlength="30">
+        </label>
+        <label>Dirección o sector
+          <input id="regAddress" required maxlength="120">
+        </label>
+        <label>Contraseña
+          <input id="regPassword" type="password" required minlength="4" autocomplete="new-password">
+        </label>
+        <button class="btn primary" type="submit">Crear cuenta</button>
+      </form>
+
+      <p id="modeNote" class="mode-note"></p>
+    </div>
+  </section>
+
+  <div id="appView" class="app hidden">
+    <header class="topbar">
+      <div>
+        <strong id="siteName">Alerta Comunitaria</strong>
+        <small id="connectionMode">Conectando…</small>
+      </div>
+      <div class="header-actions">
+        <button id="enableNotifications" class="icon-btn" type="button" title="Activar notificaciones">🔔</button>
+        <button id="logoutBtn" class="icon-btn" type="button" title="Cerrar sesión">Salir</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="quick-links">
+        <a id="donationButton" class="donation-button hidden" href="#" target="_blank" rel="noopener noreferrer">
+          <span>💛</span>
+          <strong id="donationButtonText">Donar</strong>
+        </a>
+
+        <a id="contactAdminButton" class="contact-admin-button hidden" href="#" rel="noopener noreferrer">
+          <span>💬</span>
+          <strong id="contactAdminButtonText">Contactar al administrador</strong>
+        </a>
+      </div>
+
+      <section class="hero card">
+        <p class="eyebrow">EMERGENCIAS DE LA COMUNIDAD</p>
+        <h2>¿Qué está pasando?</h2>
+        <p>Selecciona una categoría, agrega información y presiona el botón de alarma.</p>
+
+        <div id="categoryGrid" class="category-grid"></div>
+
+        <label class="full">Descripción de la alerta
+          <textarea id="alertDescription" rows="3" maxlength="500" placeholder="Ejemplo: humo saliendo de una vivienda, calle afectada, características de la mascota…"></textarea>
+        </label>
+
+        <div id="locationStatus" class="location-box">📍 La ubicación se solicitará al enviar la alerta.</div>
+
+        <button id="alarmBtn" class="alarm-btn" type="button" disabled>
+          <span class="alarm-icon">🚨</span>
+          <span>ENVIAR ALARMA</span>
+          <small>Presiona solo ante una alerta real</small>
+        </button>
+      </section>
+
+      <section class="toolbar card">
+        <div>
+          <h2>Alertas de la comunidad</h2>
+          <p class="muted">Las alertas más recientes aparecen primero.</p>
+        </div>
+        <select id="alertFilter" aria-label="Filtrar alertas">
+          <option value="all">Todas</option>
+          <option value="active">Activas</option>
+          <option value="resolved">Resueltas</option>
+          <option value="cancelled">Canceladas</option>
+        </select>
+      </section>
+
+      <section id="alertsList" class="alerts-list" aria-live="polite"></section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-active" type="button">🚨<span>Alertas</span></button>
+      <button id="profileBtn" type="button">👤<span>Mi perfil</span></button>
+    </nav>
+  </div>
+
+  <dialog id="alertDialog" class="dialog">
+    <button id="closeDialog" class="dialog-close" aria-label="Cerrar">×</button>
+    <div id="alertDetail"></div>
+    <hr>
+    <h3>Mensajes y respuestas</h3>
+    <div id="messagesList" class="messages"></div>
+    <form id="messageForm" class="message-form">
+      <input id="messageInput" maxlength="500" required placeholder="Escribe una respuesta…">
+      <button class="btn primary" type="submit">Enviar</button>
+    </form>
+  </dialog>
+
+  <dialog id="profileDialog" class="dialog">
+    <button id="closeProfile" class="dialog-close" aria-label="Cerrar">×</button>
+    <h2>Mi perfil</h2>
+    <div id="profileContent"></div>
+  </dialog>
+
+  <script type="module" src="./assets/app.js"></script>
+</body>
+</html>

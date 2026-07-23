@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#20242b">
+  <title>Administración | Alerta Comunitaria</title>
+  <link rel="icon" href="../assets/icon-192.png">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body class="admin-body">
+  <div id="toast" class="toast" role="status"></div>
+
+  <section id="adminLogin" class="auth-shell">
+    <form id="adminLoginForm" class="auth-card stack">
+      <div class="brand-mark dark">⚙️</div>
+      <h1>Administración</h1>
+      <p class="muted">Acceso independiente. Este enlace no aparece en la pantalla de usuarios.</p>
+      <label>Contraseña
+        <input id="adminPassword" type="password" required autocomplete="current-password">
+      </label>
+      <button class="btn dark-btn" type="submit">Entrar al panel</button>
+      <small>Contraseña inicial: <strong>1234</strong></small>
+      <a class="back-link" href="../">← Volver al sistema</a>
+    </form>
+  </section>
+
+  <div id="adminPanel" class="hidden">
+    <header class="topbar admin-topbar">
+      <div>
+        <strong>Panel de administración</strong>
+        <small>Configuración general del sistema</small>
+      </div>
+      <button id="adminLogout" class="icon-btn" type="button">Cerrar</button>
+    </header>
+
+    <main class="admin-container">
+      <section class="stats-grid">
+        <article class="stat-card"><span>Usuarios</span><strong id="statUsers">0</strong></article>
+        <article class="stat-card"><span>Alertas activas</span><strong id="statActive">0</strong></article>
+        <article class="stat-card"><span>Total alertas</span><strong id="statTotal">0</strong></article>
+      </section>
+
+      <section class="admin-grid">
+        <article class="card">
+          <h2>Configuración visual</h2>
+          <form id="settingsForm" class="stack">
+            <label>Nombre del sistema
+              <input id="settingName" required maxlength="60">
+            </label>
+            <label>Color principal
+              <input id="settingColor" type="color">
+            </label>
+            <label>Radio de alertas (km)
+              <input id="settingRadius" type="number" min="1" max="100" value="10">
+            </label>
+
+            <fieldset class="donation-settings">
+              <legend>Botón de donación</legend>
+
+              <label class="toggle-label">
+                <input id="settingDonationEnabled" type="checkbox">
+                Mostrar botón de donación en la pantalla principal
+              </label>
+
+              <label>Texto del botón
+                <input id="settingDonationLabel" maxlength="40" placeholder="Donar">
+              </label>
+
+              <label>Enlace directo de donación
+                <input id="settingDonationUrl" type="url" placeholder="https://...">
+              </label>
+
+              <small class="muted">Puedes usar un enlace de Mercado Pago, PayPal, transferencia, campaña u otra plataforma.</small>
+            </fieldset>
+
+            <fieldset class="donation-settings">
+              <legend>Contacto con el administrador</legend>
+
+              <label class="toggle-label">
+                <input id="settingContactEnabled" type="checkbox">
+                Mostrar botón para contactar al administrador
+              </label>
+
+              <label>Texto del botón
+                <input id="settingContactLabel" maxlength="50" placeholder="Contactar al administrador">
+              </label>
+
+              <label>Enlace de contacto
+                <input id="settingContactUrl" placeholder="https://wa.me/... o mailto:correo@ejemplo.com">
+              </label>
+
+              <small class="muted">Acepta enlaces web, WhatsApp, correo y teléfono.</small>
+            </fieldset>
+
+            <button class="btn dark-btn" type="submit">Guardar configuración</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <h2>Cambiar contraseña del administrador</h2>
+          <form id="passwordForm" class="stack">
+            <label>Contraseña actual
+              <input id="currentPassword" type="password" required>
+            </label>
+            <label>Nueva contraseña
+              <input id="newPassword" type="password" required minlength="4">
+            </label>
+            <label>Repetir nueva contraseña
+              <input id="repeatPassword" type="password" required minlength="4">
+            </label>
+            <button class="btn danger" type="submit">Cambiar contraseña</button>
+          </form>
+        </article>
+
+        <article class="card admin-wide">
+          <div class="section-heading">
+            <div>
+              <h2>Categorías</h2>
+              <p class="muted">Agrega, edita o elimina categorías del botón de alarma.</p>
+            </div>
+            <button id="addCategory" class="btn dark-btn" type="button">+ Agregar</button>
+          </div>
+          <div id="categoriesAdmin" class="admin-list"></div>
+        </article>
+
+        <article class="card admin-wide">
+          <div class="section-heading">
+            <div>
+              <h2>Gestión de alertas</h2>
+              <p class="muted">Reabre, resuelve, cancela o elimina alertas.</p>
+            </div>
+            <button id="exportAlerts" class="btn secondary" type="button">Exportar CSV</button>
+          </div>
+          <div id="adminAlerts" class="table-wrap"></div>
+        </article>
+
+        <article class="card admin-wide">
+          <h2>Usuarios registrados</h2>
+          <p class="muted">Puedes seleccionar el estado, cambiar la contraseña o eliminar una cuenta.</p>
+          <div id="adminUsers" class="table-wrap"></div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="../assets/admin.js"></script>
+</body>
+</html>
